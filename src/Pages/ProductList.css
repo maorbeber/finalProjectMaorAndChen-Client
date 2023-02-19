@@ -1,0 +1,32 @@
+.ProductListContainer{
+
+}
+
+.ProductListFilterContainer{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.ProductListFilter{
+    margin: 20px;
+}
+
+.ProductListTitle{
+    margin: 20px;
+}
+
+.ProductListFilterText{
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.ProductListSelect{
+    padding: 10px;
+    margin-right: 20px;
+    
+}
+.ProductListOption{
+    
+}

@@ -1,0 +1,55 @@
+.RegisterContainer {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url("https://www.shutterstock.com/shutterstock/photos/2151950389/display_1500/stock-photo-navy-blue-dark-background-beautiful-abstract-of-decorative-stucco-wallpaper-art-of-rough-surfaces-2151950389.jpg")
+        center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .RegisterWrapper {
+    padding: 20px;
+    width: 40%;
+    background-color: white;
+  }
+  
+  .RegisterTitle {
+    font-size: 24px;
+    font-weight: 300;
+  }
+  
+  .RegisterForm {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .RegisterInput {
+    flex: 1;
+    min-width: 40%;
+    margin: 20px 10px 0px 0px;
+    padding: 10px;
+  }
+  
+  .RegisterButton {
+      margin: 15px 0px;
+      width: 40%;
+      border: none;
+      padding: 15px;
+      background-color: teal;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+  }
+  
+  .RegisterLink{
+      margin: 5px 20px 0px 0px;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+  }
+  
