@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Announcements from "../Components/HomePageComponents/Announcements";
 import Footer from "../Components/HomePageComponents/Footer";
 import Navbar from "../Components/HomePageComponents/Navbar";
@@ -6,34 +6,52 @@ import NewsLetter from "../Components/HomePageComponents/NewsLetter";
 import "./ProductPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const ProductPage = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  var price;
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/products/find/${id}`
+        );
+        setProduct(res.data);
+        //price = product.price;
+      } catch (err) {}
+    };
+    getProduct();
+  }, [id]);
+  const handleQuantity = (action) => {
+    if (action == "inc") {
+      setQuantity(quantity + 1);
+    } else if (action == "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    }
+  };
   return (
     <div className="ProductPageContainer">
       <Navbar />
       <Announcements />
       <div className="ProductPageWrapper">
         <div className="ProductPageImgContainer">
-          <img
-            className="ProductPageImage"
-            src="https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png"
-          ></img>
+          <img className="ProductPageImage" src={product.image}></img>
         </div>
         <div className="ProductPageInfoContainer">
-          <h1 className="ProductPageTitle">Shirt</h1>
-          <p className="ProductPageDesc">
-            Most beatiful shirt ever made among human kind
-          </p>
-          <span className="ProductPagePrice">$350</span>
+          <h1 className="ProductPageTitle">{product.title}</h1>
+          <p className="ProductPageDesc">{product.desc}</p>
+          <p className="ProductPageDesc">{product.color}</p>
+          <span className="ProductPagePrice">${product.price}</span>
           <div className="ProductPageFilterContainer">
             <div className="ProductPageFilter">
-              <span className="ProductPageFilterTitle">Size</span>
+              <span className="ProductPageFilterTitle">{product.size}</span>
               <select className="ProductPageFilterSize">
-                <option
-                  className="ProductPageFilterSizeOption"
-                  disabled
-                  selected
-                >
+                <option className="ProductPageFilterSizeOption" disabled>
                   Size
                 </option>
                 <option className="ProductPageFilterSizeOption">XS</option>
@@ -46,9 +64,17 @@ const ProductPage = () => {
           </div>
           <div className="ProductPageAddContainer">
             <div className="ProductPageAmountContainer">
-              <FontAwesomeIcon icon={faPlus} style={{ cursor: "pointer" }} />
-              <span className="ProductPageAmount">1</span>
-              <FontAwesomeIcon icon={faMinus} style={{ cursor: "pointer" }} />
+              <FontAwesomeIcon
+                icon={faPlus}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("inc")}
+              />
+              <span className="ProductPageAmount">{quantity}</span>
+              <FontAwesomeIcon
+                icon={faMinus}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("dec")}
+              />
             </div>
             <button className="ProductPageButton">Add To Cart</button>
           </div>
@@ -60,5 +86,5 @@ const ProductPage = () => {
   );
 };
 
-//1:59:30 creating the register and login pages
+//48:20
 export default ProductPage;

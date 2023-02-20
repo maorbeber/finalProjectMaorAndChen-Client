@@ -17,6 +17,7 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
+
   return (
     <div className="ProductListContainer">
       <Navbar />
@@ -33,6 +34,7 @@ const ProductList = () => {
             <option className="ProductListOption" disabled>
               Color
             </option>
+            <option className="ProductListOption">All</option>
             <option className="ProductListOption">White</option>
             <option className="ProductListOption">Blue</option>
             <option className="ProductListOption">Red</option>
@@ -42,12 +44,13 @@ const ProductList = () => {
           </select>
           <select
             name="size"
-            onChange={filterChangeHandler}
             className="ProductListSelect"
+            onChange={filterChangeHandler}
           >
             <option className="ProductListOption" disabled>
               Size
             </option>
+            <option className="ProductListOption">All</option>
             <option className="ProductListOption">XS</option>
             <option className="ProductListOption">S</option>
             <option className="ProductListOption">M</option>

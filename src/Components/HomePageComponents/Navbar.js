@@ -1,6 +1,8 @@
 // import { Badge, IconButton, MenuItem } from "@material-ui/core";
 // import { Search, ShoppingCart, ShoppingCartOutlined } from "@material-ui/icons";
 //import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -11,9 +13,6 @@ const Navbar = () => {
           <div className="langauge">EN </div>
           <div className="SerachContainer">
             <div className="input"></div>
-            {/* <IconButton>
-              <Search style={{ color: "gray", fontSize: 16 }} />
-            </IconButton> */}
           </div>
         </div>
         <div className="center">
@@ -23,9 +22,7 @@ const Navbar = () => {
           <div className="MenuItem">Register</div>
           <div className="MenuItem">Sign In</div>
           <div className="MenuItem">
-            {/* <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge> */}
+            <FontAwesomeIcon icon={faCartShopping} /> 0
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@ import axios from "axios";
 
 const Products = (filters, sort) => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -15,7 +14,27 @@ const Products = (filters, sort) => {
       } catch (err) {}
     };
     getProducts();
-  }, [filters]);
+  }, []);
+
+  useEffect(() => {
+    const getFilteredProducts = async () => {
+      try {
+        const color =
+          filters.filters.color == "All" ? "" : filters.filters.color || "";
+        const colorQuery = color.toLowerCase();
+        const size =
+          filters.filters.size == "All" ? "" : filters.filters.size || "";
+        const sort = filters.sort || "";
+        const res = await axios.get(
+          `http://localhost:3001/api/products/filters?color=${colorQuery}&size=${size}&sort=${sort}`
+        );
+        setProducts(res.data);
+      } catch (err) {
+        console.log(`error is: ${err}`);
+      }
+    };
+    getFilteredProducts();
+  }, [filters, sort]);
 
   return (
     <div className="ProductsContainer">

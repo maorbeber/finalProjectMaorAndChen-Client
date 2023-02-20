@@ -1,11 +1,4 @@
-// import { IconButton } from "@material-ui/core";
-// import {
-//   FavoriteBorderOutlined,
-//   SearchOutlined,
-//   ShoppingCartOutlined,
-// } from "@material-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import {
   faCartShopping,
   faMagnifyingGlass,
@@ -13,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import "./Product.css";
+import { Link } from "react-router-dom";
 
 const Product = ({ item }) => {
   return (
@@ -24,7 +18,9 @@ const Product = ({ item }) => {
           <FontAwesomeIcon icon={faCartShopping} />
         </div>
         <div className="ProductIcon">
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <Link to={`/product/${item._id}`}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </Link>
         </div>
         <div className="ProductIcon">
           <FontAwesomeIcon icon={faHeart} />
