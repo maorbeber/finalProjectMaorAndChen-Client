@@ -15,8 +15,7 @@
   flex: 1;
   padding: 20px;
 }
-.FooterLogo {
-}
+
 .FooterDesc {
   margin: 20px 0px;
 }
@@ -40,6 +39,7 @@
   width: 50%;
   margin-bottom: 5px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .FooterSocialIcon {
@@ -52,6 +52,7 @@
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .FooterContactItem {

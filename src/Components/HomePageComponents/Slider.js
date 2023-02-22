@@ -1,7 +1,9 @@
-// import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import "./Slider.css";
 import { sliderItems } from "../../data";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -22,7 +24,7 @@ const Slider = () => {
         onClick={() => ClickHandler("left")}
         data-direction="left"
       >
-        {/* <ArrowLeftOutlined></ArrowLeftOutlined> */}
+        <FontAwesomeIcon icon={faArrowLeft} />
       </div>
       <div className="SliderWrapper" data-slideIndex={slideIndex}>
         {sliderItems.map((item) => (
@@ -33,7 +35,9 @@ const Slider = () => {
             <div className="InfoContainer">
               <h1 className="SliderTitle">{item.title}</h1>
               <p className="SliderDescription">{item.desc}</p>
-              <button className="SliderButton">Push here</button>
+              <Link to={"/products"}>
+                <button className="SliderButton">Push here</button>
+              </Link>
             </div>
           </div>
         ))}
@@ -43,7 +47,7 @@ const Slider = () => {
         data-direction="right"
         onClick={() => ClickHandler("right")}
       >
-        {/* <ArrowRightOutlined></ArrowRightOutlined> */}
+        <FontAwesomeIcon icon={faArrowRight} />
       </div>
     </div>
   );

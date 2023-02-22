@@ -2,7 +2,12 @@ import React from "react";
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faLocationDot, faPhone,faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLocationDot,
+  faPhone,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -12,18 +17,23 @@ const Footer = () => {
         <p className="FooterDesc">This is the footer elements of our shop</p>
         <div className="FooterSocialContainer">
           <div className="FooterSocialIcon">
-          <FontAwesomeIcon icon={faFacebook} />
+            <FontAwesomeIcon icon={faFacebook} />
           </div>
         </div>
       </div>
       <div className="FooterCenter">
         <h3 className="FooterTitle">Useful Links</h3>
         <ul className="FooterList">
-          <li className="FooterListItem">Home</li>
-          <li className="FooterListItem">Cart</li>
-          <li className="FooterListItem">Man Fashion</li>
-          <li className="FooterListItem">Accessories</li>
-          <li className="FooterListItem">My Accoutn</li>
+          <Link className="FooterListItem" to={"/"}>
+            Home
+          </Link>
+          <Link className="FooterListItem" to={"/cart"}>
+            Cart
+          </Link>
+          <Link className="FooterListItem" to={"/products"}>
+            Shop
+          </Link>
+          <li className="FooterListItem">My Account</li>
         </ul>
       </div>
       <div className="FooterRight">

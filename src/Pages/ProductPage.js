@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const ProductPage = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-  var price;
+  const dispatch = useDispatch();
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -22,7 +24,6 @@ const ProductPage = () => {
           `http://localhost:3001/api/products/find/${id}`
         );
         setProduct(res.data);
-        //price = product.price;
       } catch (err) {}
     };
     getProduct();
@@ -33,6 +34,9 @@ const ProductPage = () => {
     } else if (action == "dec") {
       quantity > 1 && setQuantity(quantity - 1);
     }
+  };
+  const clickHandler = () => {
+    dispatch(addProduct({ ...product, quantity}));
   };
   return (
     <div className="ProductPageContainer">
@@ -76,7 +80,9 @@ const ProductPage = () => {
                 onClick={() => handleQuantity("dec")}
               />
             </div>
-            <button className="ProductPageButton">Add To Cart</button>
+            <button className="ProductPageButton" onClick={clickHandler}>
+              Add To Cart
+            </button>
           </div>
         </div>
       </div>

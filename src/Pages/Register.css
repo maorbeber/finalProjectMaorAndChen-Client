@@ -44,6 +44,7 @@
       color: white;
       cursor: pointer;
       margin-bottom: 10px;
+      
   }
   
   .RegisterLink{
@@ -51,5 +52,9 @@
       font-size: 12px;
       text-decoration: underline;
       cursor: pointer;
+  }
+
+  .RegisterError{
+    color: red;
   }
   
