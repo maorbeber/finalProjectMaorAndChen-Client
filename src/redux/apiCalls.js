@@ -31,12 +31,24 @@ export const logout = (dispatch) => {
 };
 
 export const makeAdmin = async (dispatch, email) => {
-  console.log(email)
+  console.log(email);
   try {
     const res = await axios.get(
       `http://localhost:3001/api/auth/setAdmin/${email}`
     );
     dispatch(setAdmin());
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const isAdmin = async (email) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:3001/api/auth/user/${email}`
+    );
+    return res.data;
   } catch (err) {
     console.log(err);
   }

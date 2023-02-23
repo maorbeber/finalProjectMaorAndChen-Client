@@ -5,14 +5,13 @@ import axios from "axios";
 
 const Products = (filters, sort) => {
   const [products, setProducts] = useState([]);
-
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/api/products/");
+      setProducts(res.data);
+    } catch (err) {}
+  };
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await axios.get("http://localhost:3001/api/products/");
-        setProducts(res.data);
-      } catch (err) {}
-    };
     getProducts();
   }, []);
 
@@ -36,10 +35,18 @@ const Products = (filters, sort) => {
     getFilteredProducts();
   }, [filters, sort]);
 
+  const handleDelete = async (productId) => {
+    getProducts();
+  };
+
   return (
     <div className="ProductsContainer">
       {products.map((item) => (
-        <Product item={item} key={item._id} />
+        <Product
+          item={item}
+          key={item._id}
+          onDelete={() => handleDelete(item._id)}
+        />
       ))}
     </div>
   );

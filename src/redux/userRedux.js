@@ -25,7 +25,6 @@ const userSlice = createSlice({
       state.isFetching = false;
     },
     setAdmin: (state) => {
-      state.isFetching = false;
       state.admin = true;
     },
   },
