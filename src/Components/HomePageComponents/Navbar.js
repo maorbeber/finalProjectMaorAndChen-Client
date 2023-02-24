@@ -2,28 +2,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 //keep for now
-import { logout, makeAdmin } from "../../redux/apiCalls";
-import { useState } from "react";
+import { logout, makeAdmin, isAdmin } from "../../redux/apiCalls";
+import { useEffect, useState } from "react";
+import "../../Pages/Cart.css";
 
 const Navbar = () => {
+  const location = useLocation();
+  const adminPage = location.pathname == "/admin";
   const user = useSelector((state) => state.user.currentUser);
   const quantity = useSelector((state) => state.cart.quantity);
   const [email, setEmail] = useState("");
-  //keep for now
+  const [admin, setAdmin] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (user) {
+      isAdmin(user.email).then((data) => setAdmin(data));
+    }
+  }, []);
   const logoutHandler = (e) => {
     if (user) {
       e.preventDefault();
       logout(dispatch);
+      navigate("/");
     }
   };
-  const adminHandler = () => {
-    if (!user.admin) {
-      setEmail(user.email);
-      makeAdmin(dispatch, email);
-    }
+  const addProductHandler = () => {
+    setIsVisible(!isVisible);
   };
   return (
     <div className="container">
@@ -48,10 +56,28 @@ const Navbar = () => {
           <Link to={"/login"} className="MenuItem" onClick={logoutHandler}>
             {user ? "Sign out" : "Sign in"}
           </Link>
-          {user && !user.admin && (
-            <div className="MenuItem" onClick={adminHandler}>
-              Become Admin
-            </div>
+          {user && admin && !adminPage && (
+            <Link to={"/admin"} className="MenuItem">
+              Admin Page
+            </Link>
+          )}
+          {adminPage && (
+            <Link
+              to={"/addProduct"}
+              className="MenuItem"
+              onClick={addProductHandler}
+            >
+              Add product
+            </Link>
+          )}
+          {adminPage && (
+            <Link
+              to={"/manageAdmins"}
+              className="MenuItem"
+              onClick={addProductHandler}
+            >
+              Manage Admins
+            </Link>
           )}
           <div className="MenuItem">
             <Link to="/cart">

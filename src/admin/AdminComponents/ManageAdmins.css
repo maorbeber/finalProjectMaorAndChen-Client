@@ -1,0 +1,48 @@
+.AdminsUl {
+  list-style-type: none;
+  padding: 0;
+}
+
+.AdminsLi {
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.AdminSpan {
+  margin-right: 10px;
+}
+
+.AdminsMakeButton {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.AdminsMakeButton:hover {
+  transform: scale(1.03);
+  background-color: #06550a;
+}
+
+.AdminsRemoveButton {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.AdminsRemoveButton:hover {
+    transform: scale(1.03);
+    background-color: #983636;
+  }

@@ -21,7 +21,9 @@ const Product = ({ item, onDelete }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    isAdmin(user.email).then((data) => setAdmin(data));
+    if (user) {
+      isAdmin(user.email).then((data) => setAdmin(data));
+    }
   }, [admin]);
   const clickHandler = async () => {};
   const deleteHandler = async () => {
@@ -44,7 +46,7 @@ const Product = ({ item, onDelete }) => {
             </Link>
           </div>
           {admin && (
-            <div className="ProductIcon" onClick={clickHandler}>
+            <div className="ProductIcon" onClick={deleteHandler}>
               <FontAwesomeIcon icon={faTrash} />
             </div>
           )}

@@ -55,17 +55,17 @@ const Cart = () => {
                   </div>
                   <div className="CartPriceDetails">
                     <div className="CartProductAmountContainer">
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faPlus}
                         style={{ cursor: "pointer" }}
-                      />
+                      /> */}
                       <span className="CartProductAmount">
                         {product.quantity}
                       </span>
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faMinus}
                         style={{ cursor: "pointer" }}
-                      />
+                      /> */}
                     </div>
                     <span className="CartProductAmount">
                       ${product.price * product.quantity}
