@@ -7,8 +7,9 @@ import Register from "./Pages/Register";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AdminPage from "./Pages/AdminPage";
-import AddProduct from "./admin/AdminComponents/AddProduct"
-import ManageAdmins from "./admin/AdminComponents/ManageAdmins"
+import AddProduct from "./admin/AdminComponents/AddProduct";
+import EditProduct from "./admin/AdminComponents/EditProduct";
+import ManageAdmins from "./admin/AdminComponents/ManageAdmins";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -18,8 +19,9 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/admin" element={<AdminPage />} />
         <Route exact path="/products" element={<ProductList />} />
-        <Route exact path="/addProduct" element={<AddProduct/>} />
-        <Route exact path="/manageAdmins" element={<ManageAdmins/>} />
+        <Route exact path="/addProduct" element={<AddProduct />} />
+        <Route exact path="/EditProduct/:id" element={<EditProduct />} />
+        <Route exact path="/manageAdmins" element={<ManageAdmins />} />
         <Route exact path="/product/:id" element={<ProductPage />} />
         <Route exact path="/cart" element={<Cart />} />
         {user ? (

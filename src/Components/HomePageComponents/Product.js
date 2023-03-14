@@ -25,7 +25,6 @@ const Product = ({ item, onDelete }) => {
       isAdmin(user.email).then((data) => setAdmin(data));
     }
   }, [admin]);
-  const clickHandler = async () => {};
   const deleteHandler = async () => {
     try {
       await axios.get(`http://localhost:3001/api/products/delete/${item._id}`);
@@ -48,6 +47,13 @@ const Product = ({ item, onDelete }) => {
           {admin && (
             <div className="ProductIcon" onClick={deleteHandler}>
               <FontAwesomeIcon icon={faTrash} />
+            </div>
+          )}
+          {admin && (
+            <div className="ProductIcon">
+              <Link to={`/EditProduct/${item._id}`}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </Link>
             </div>
           )}
         </div>
