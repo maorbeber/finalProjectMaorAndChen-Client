@@ -2,10 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 //keep for now
-import { logout, makeAdmin, isAdmin } from "../../redux/apiCalls";
+import { logout, isAdmin } from "../../redux/apiCalls";
 import { useEffect, useState } from "react";
+import io from "socket.io-client";
 import "../../Pages/Cart.css";
 
 const Navbar = () => {
@@ -13,14 +14,21 @@ const Navbar = () => {
   const adminPage = location.pathname == "/admin";
   const user = useSelector((state) => state.user.currentUser);
   const quantity = useSelector((state) => state.cart.quantity);
-  const [email, setEmail] = useState("");
   const [admin, setAdmin] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [usersConnected, setUsersConnected] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     if (user) {
       isAdmin(user.email).then((data) => setAdmin(data));
+      const socket = io("http://localhost:3001"); // connect to server
+      socket.on("connectedUsers", (data) => {
+        setUsersConnected(data.count);
+      });
+      return () => {
+        socket.disconnect();
+      };
     }
   }, []);
   const logoutHandler = (e) => {
@@ -48,6 +56,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="right">
+          {user && admin && <div>{usersConnected} Connected</div>}
           {!user && (
             <Link to={"/register"} className="MenuItem">
               Register
