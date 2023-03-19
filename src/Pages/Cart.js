@@ -5,13 +5,20 @@ import Announcements from "../Components/HomePageComponents/Announcements";
 import Footer from "../Components/HomePageComponents/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { decreaseCartItem, increaseCartItem, updateCartItem } from "../redux/cartRedux";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
 
+  const changeQuantityHandler = (product, num) => {
+    num > 0
+      ? dispatch(increaseCartItem({ ...product }))
+      : dispatch(decreaseCartItem({ ...product }));
+  };
   const modalHandler = () => {
     setIsVisible(!isVisible);
   };
@@ -33,45 +40,52 @@ const Cart = () => {
           <div className="CartInfo">
             {cart.products.map((product) => (
               <div className="CartProduct">
-                <div className="CartProductDetails">
-                  <div className="CartDetails">
-                    <img className="CartProductImage" src={product.image}></img>
-                    <span className="CartProductName">
-                      <b>Product:</b>
-                      {product.title}
-                    </span>
-                    <span className="CartProductID">
-                      <b>ID:</b>
-                      {product._id}
-                    </span>
-                    <span className="CartProductSize">
-                      <b>Color:</b>
-                      {product.color}
-                    </span>
-                    <span className="CartProductSize">
-                      <b>Size:</b>
-                      {product.size}
-                    </span>
-                  </div>
-                  <div className="CartPriceDetails">
-                    <div className="CartProductAmountContainer">
-                      {/* <FontAwesomeIcon
-                        icon={faPlus}
-                        style={{ cursor: "pointer" }}
-                      /> */}
-                      <span className="CartProductAmount">
-                        {product.quantity}
+                {product.quantity > 0 && (
+                  <div className="CartProductDetails">
+                    <div className="CartDetails">
+                      <img
+                        className="CartProductImage"
+                        src={product.image}
+                      ></img>
+                      <span className="CartProductName">
+                        <b>Product:</b>
+                        {product.title}
                       </span>
-                      {/* <FontAwesomeIcon
-                        icon={faMinus}
-                        style={{ cursor: "pointer" }}
-                      /> */}
+                      <span className="CartProductID">
+                        <b>ID:</b>
+                        {product._id}
+                      </span>
+                      <span className="CartProductSize">
+                        <b>Color:</b>
+                        {product.color}
+                      </span>
+                      <span className="CartProductSize">
+                        <b>Size:</b>
+                        {product.size}
+                      </span>
                     </div>
-                    <span className="CartProductAmount">
-                      ${product.price * product.quantity}
-                    </span>
+                    <div className="CartPriceDetails">
+                      <div className="CartProductAmountContainer">
+                        <FontAwesomeIcon
+                          onClick={() => changeQuantityHandler(product, 1)}
+                          icon={faPlus}
+                          style={{ cursor: "pointer" }}
+                        />
+                        <span className="CartProductAmount">
+                          {product.quantity}
+                        </span>
+                        <FontAwesomeIcon
+                          onClick={() => changeQuantityHandler(product, -1)}
+                          icon={faMinus}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </div>
+                      <span className="CartProductAmount">
+                        ${product.price * product.quantity}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>
@@ -101,17 +115,31 @@ const Cart = () => {
       </div>
       {isVisible && (
         <div className="ModalContainer">
-          <div className="ModalWrapper">
-            <h1 className="ModalTitle">Thanks you for your purchase</h1>
-            <p className="ModalContent">
-              Order will be shipped to you in the next business day
-            </p>
-            <div className="ModalButtons">
-              <button className="ModalButton" onClick={modalHandler}>
-                Close
-              </button>
+          {cart.total > 0 ? (
+            <div className="ModalWrapper">
+              <h1 className="ModalTitle">Thank you for your purchase</h1>
+              <p className="ModalContent">
+                Order will be shipped to you in the next business day
+              </p>
+              <div className="ModalButtons">
+                <button className="ModalButton" onClick={modalHandler}>
+                  Close
+                </button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="ModalWrapper">
+              <h1 className="ModalTitle">Your cart is empty</h1>
+              <p className="ModalContent">
+                You can add items to the cart and come back to checkout
+              </p>
+              <div className="ModalButtons">
+                <button className="ModalButton" onClick={modalHandler}>
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
       <Footer />

@@ -35,7 +35,7 @@ const Products = (filters, sort) => {
     getFilteredProducts();
   }, [filters, sort]);
 
-  const handleDelete = async (productId) => {
+  const handleDelete = async () => {
     getProducts();
   };
 
