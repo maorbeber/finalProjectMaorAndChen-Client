@@ -7,7 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { decreaseCartItem, increaseCartItem, updateCartItem } from "../redux/cartRedux";
+import {
+  decreaseCartItem,
+  emptyCart,
+  increaseCartItem,
+} from "../redux/cartRedux";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -18,6 +22,9 @@ const Cart = () => {
     num > 0
       ? dispatch(increaseCartItem({ ...product }))
       : dispatch(decreaseCartItem({ ...product }));
+  };
+  const emptyCartHandler = () => {
+    dispatch(emptyCart());
   };
   const modalHandler = () => {
     setIsVisible(!isVisible);
@@ -32,8 +39,8 @@ const Cart = () => {
           <Link to={"/products"}>
             <button className="CartTopButton">Continue Shopping</button>
           </Link>
-          <button className="CartTopButton" onClick={modalHandler}>
-            Checkout Now
+          <button className="CartTopButton" onClick={emptyCartHandler}>
+            Empty Cart
           </button>
         </div>
         <div className="CartBottom">
